@@ -6,7 +6,7 @@ This is due to WotC shutting down the old backend, and the application attempts 
 This package contains:
 
 - `wer.exe`, a local fake backend with barely enough functionality to mock the required endpoints and get WER started for the first time.
-- `Reporter.exe.config`, modified WER config to connecto a local backend instead of the real one
+- `Reporter.exe.config`, modified WER config to connect to a local backend instead of the real one
 - `countries`, XML files containing vital country / translation files, normally downloaded from WotC servers on first startup.
 - `ReporterSetup.exe`, original WER installer, not included on the github repository.
 
@@ -26,7 +26,7 @@ This service is not affiliated with Wizards of the Coast and is used at your own
 7. If all goes well WER should now eventually launch. Verify that you can open the Options menu without seeing an error about countries.
 8. You can stop the `wer.exe` by closing the terminal window, and you should no longer ever need it again.
 
-After the initial setup WER should be able to launch offline without needing the wer.exe for startup again.
+After the initial setup WER should be able to launch offline without needing the wer.exe for startup again, but some users have claimed that they always need to run `wer.exe` for it to work.
 
 ## Troubleshooting
 
@@ -37,6 +37,12 @@ Make sure wer.exe is running when you launch WER, and that you replaced the orig
 Check if you see an error about missing countries/en-us.xml file when you open the Options menu.
 If yes, try running wer.exe again, it should create the missing countries files. If wer.exe fails to do this automatically
 you can manually copy the files from "countries" folder to %AppData%\Wizards of the Coast\Event Reporter\countries
+
+### VCRUNTIME140.dll error upon launching wer.exe
+Install [Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170) packages, the DLL's they include are required to run the local server. x86 is probably the correct version.
+
+### .NET Framework 3.5 on WER installer
+WER requires you to have .NET 3.5 Framework redistributable installed, and the installer should prompt you to install it. The download link should take you to https://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe, follow the installer and restart `ReporterSetup.exe` afterwards.
 
 ### Tool fails to copy countries files
 Manually copy the XML files from "countries" folder to "C:\Users\<USERNAME>\AppData\Roaming\Wizards of the Coast\Event Reporter\countries"
